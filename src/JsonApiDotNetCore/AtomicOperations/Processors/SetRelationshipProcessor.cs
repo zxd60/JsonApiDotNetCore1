@@ -1,0 +1,48 @@
+using JetBrains.Annotations;
+using JsonApiDotNetCore.Resources;
+using JsonApiDotNetCore.Resources.Annotations;
+using JsonApiDotNetCore.Services;
+
+namespace JsonApiDotNetCore.AtomicOperations.Processors;
+
+/// <inheritdoc cref="ISetRelationshipProcessor{TResource,TId}" />
+[PublicAPI]
+public class SetRelationshipProcessor<TResource, TId> : ISetRelationshipProcessor<TResource, TId>
+    where TResource : class, IIdentifiable<TId>
+{
+    private readonly ISetRelationshipService<TResource, TId> _service;
+
+    public SetRelationshipProcessor(ISetRelationshipService<TResource, TId> service)
+    {
+        ArgumentNullException.ThrowIfNull(service);
+
+        _service = service;
+    }
+
+    /// <inheritdoc />
+    public virtual async Task<OperationContainer?> ProcessAsync(OperationContainer operation, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(operation);
+
+        var leftId = (TId)operation.Resource.GetTypedId();
+        object? rightValue = GetRelationshipRightValue(operation);
+
+        await _service.SetRelationshipAsync(leftId!, operation.Request.Relationship!.PublicName, rightValue, cancellationToken);
+
+        return null;
+    }
+
+    private object? GetRelationshipRightValue(OperationContainer operation)
+    {
+        RelationshipAttribute relationship = operation.Request.Relationship!;
+        object? rightValue = relationship.GetValue(operation.Resource);
+
+        if (relationship is HasManyAttribute)
+        {
+            IReadOnlyCollection<IIdentifiable> rightResources = CollectionConverter.Instance.ExtractResources(rightValue);
+            return rightResources.ToHashSet(IdentifiableComparer.Instance);
+        }
+
+        return rightValue;
+    }
+}
