@@ -6,9 +6,9 @@
     <HumanizerFrozenVersion>2.14.1</HumanizerFrozenVersion>
 
     <!-- Non-published dependencies (these are safe to update, won't cause a breaking change) -->
-    <BenchmarkDotNetVersion>0.14.*</BenchmarkDotNetVersion>
+    <BenchmarkDotNetVersion>0.15.2</BenchmarkDotNetVersion>
     <BogusVersion>35.6.*</BogusVersion>
-    <CodeAnalysisVersion>4.12.*</CodeAnalysisVersion>
+    <CodeAnalysisVersion>4.14.0</CodeAnalysisVersion>
     <CoverletVersion>6.0.*</CoverletVersion>
     <DapperVersion>2.1.*</DapperVersion>
     <FluentAssertionsVersion>7.2.*</FluentAssertionsVersion>
