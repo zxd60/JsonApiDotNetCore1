@@ -12,7 +12,7 @@
     <CoverletVersion>6.0.*</CoverletVersion>
     <DapperVersion>2.1.*</DapperVersion>
     <FluentAssertionsVersion>7.2.*</FluentAssertionsVersion>
-    <GitHubActionsTestLoggerVersion>2.4.*</GitHubActionsTestLoggerVersion>
+    <GitHubActionsTestLoggerVersion>3.0.1</GitHubActionsTestLoggerVersion>
     <InheritDocVersion>2.0.*</InheritDocVersion>
     <SystemTextJsonVersion>9.0.*</SystemTextJsonVersion>
     <TestSdkVersion>17.12.*</TestSdkVersion>
